@@ -1,25 +1,16 @@
-function cekkoin(koin){
-  let sen = [25,10,5,1];
-  let jumlahkoin = 0;
-  let uang = koin
-  while(uang > 0){
-    if(uang >= sen[0]){ 
-      uang -= sen[0]
-      jumlahkoin ++
-   }
-    else if(uang >= sen[1]){
-      uang -= sen[1]
-      jumlahkoin ++      
-    } 
-    else if(uang >= sen[2]){
-      uang -= sen[2]
-      jumlahkoin++   
-    }
-    else if(uang >= sen[3]){
-      sen -= sen[3]
-      jumlahkoin++
-    }
-  }
-  return jumlahkoin 
+function cekkoin(target, koin){
+	koin = koin.sort( (a, b) => b - a ); // how does sorting in JS
+	
+	var coinCount = 0;
+	
+	koin.forEach(coin => {
+		coinCount += Math.floor(target / coin);
+        target = target % coin;
+
+		});
+	
+	if (!target) return coinCount;
+	else return -1;
 }
-console.log(cekkoin(49));
+console.log(cekkoin(2,[25, 10, 5,1]));
+
