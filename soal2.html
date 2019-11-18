@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+  <head>
+    <title>Simple EO</title>
+    <style>
+      body{
+        background-color:rgb(0, 51, 102);
+        margin : 0
+      }
+      .headclass{
+        width:100%;
+        background-color:white;
+        height : 70px;
+        
+      }
+      .txt{
+        color:rgb(0, 51, 102);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 30px;
+         /* text-align: start; */
+        text-align: left;
+        padding-left: 10px;
+        padding-top :10px
+      }
+      .txt2{
+        color : solid black;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+        text-align: right;
+        padding-right : 10px;
+        padding-bottom : 10px;
+        margin-top : -30px;
+      }
+      input.tombologout{
+        color : rgb(0, 51, 102);
+        margin-right : 50px;
+        padding-bottom : 10px;
+        cursor: pointer;
+        float: right;
+      }
+      
+      table{
+        margin-top: 100px;
+        background-color: white;
+      }
+      table, td ,tr{
+        border-radius: 8px;
+        border: 1px solid black;
+        border-collapse : collapse;
+        padding: 10px;
+      }
+      table thead tr td {
+        text-align: center;
+        color:rgb(0, 51, 102)
+      }
+      table tbody tr td {
+        text-align: center;
+        color: rgb(0, 51, 102)
+      }
+      .tombol{
+        cursor: pointer;
+      }
+      .container{
+        margin-top: 100px;
+        display: grid;
+        padding: 100px;
+        border: 1px solid black;
+        height: 200px;
+        width : 100px;
+        background-color: white;
+        border-radius: 12px;
+        
+      }
+      .container form#login h2{
+        color :solid black;
+        text-align: left;
+        margin-top: -70px;
+        margin-left : -5px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 2rem
+      }
+      /* .container form#login p#loginuser{
+        color: solid black;
+        text-align: left;
+        margin-left: -91px;
+        font-size: auto;
+        font-family:Verdana, Geneva, Tahoma, sans-serif
+      } */
+      .userlogin{
+        margin-left: -63px;
+        border-radius: 12px;
+        width: 200px;
+        height: 30px
+      }
+      .tombolsubmit{
+        width :207px;
+        margin-left: -63px;
+        height:30px;
+        color:white;
+        background-color:rgb(0, 51, 102);
+        font-size: 15px;
+        font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        border-radius:12px
+      }
+      input[type=text], input[type=password]{
+        border-radius: 12px;
+        
+        background-color : whitesmoke
+      }
+      ::placeholder{
+        color:rgb(0, 51, 102);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 18px ;
+      }
+      .change::placeholder{
+        font-size: 10px;
+        text-align: center;
+        color:grey;
+      }
+      
+    </style>
+
+  </head>
+  <body>
+    <center>
+      <div class= "headclass" id="header">
+        <div class="txt">JadwalSimpel</div> 
+        <div class="txt2" id="usertxt"></div>
+        <div class="txt3" id="tomboltxt"></div>
+      </div>
+      <div class="container" id = "containlogin">
+          <form id = 'login'>
+              <h2 class = "masuk" id = "Masuk">Masuk</h2>
+              <!-- <p id = "loginuser">Username :</p> -->
+              <br>
+              <br>
+              <input type="text"
+                     placeholder="username"
+                     id="namauser"
+                     class="userlogin"
+              >
+              <br>
+              <br>
+              <!-- <p id ="loginuser" :>Password :</p> -->
+              <input type="password"
+                     placeholder="password"
+                     id="katasandi"
+                     class="userlogin"
+              >
+              <br>
+              <br>
+              <br>
+              <br>
+              <input type="button"
+                     value="SIGN IN"
+                     onclick="printMenu()"
+                     class="tombolsubmit"
+              >
+            </form>
+      </div>
+      <table>
+        <thead id="headMenu"></thead>
+        <tbody id="bodyMenu"></tbody>
+        <tfoot id="footMenu"></tfoot>
+      </table>
+      <h2 id = "jadwal"></h2>
+      <table>
+        <thead id="jadwalmenu"></thead>
+        <tbody id="jadwalbody"></tbody>
+      </table>
+    </center>
+    <script>
+      class cetakanUser{
+        constructor(namapengguna,sandi,peran){
+          this.userName = namapengguna,
+          this.pass = sandi,
+          this.role = peran
+        }
+      }
+      class cetakanAcara{
+        constructor(event,time,date,day,poster){
+          this.acara = event,
+          this.waktu = time,
+          this.tanggal = date,
+          this.hari = day,
+          this.gambar = poster
+        }
+      }
+      /* -------------------------------list-------------------------- */
+        let user = [
+          {
+            userName : "admin",
+            pass : "admin",
+            role : "admin"
+          },
+          {
+            userName : "ikhrom",
+            pass : "mantap",
+            role : "user"
+          },
+          {
+            userName : "lian",
+            pass : "lian",
+            role : 'user'
+          }
+        ];
+        let event = [
+          {
+            acara : "Atletik",
+            waktu : "19.00 WIB",
+            tanggal : "23 November 2019",
+            day : "Sabtu",
+            gambar : 'http://tokolahraga.com/wp-content/uploads/2018/09/x7.jpg'
+          },
+          {
+            acara : "Futsal",
+            waktu : "19.30 WIB",
+            tanggal : "24 November 2019",
+            day : "Minggu",
+            gambar : "https://i0.wp.com/berolahraga.net/wp-content/uploads/2019/04/permainan-futsal-1.png?fit=795%2C491&ssl=1"
+
+          },
+          {
+            acara : "Tenis Meja",
+            waktu : "17.00 WIB",
+            tanggal : "30 November 2019",
+            day : "Sabtu",
+            gambar : "https://cdn2.tstatic.net/wow/foto/bank/images/para-atlet-tenis-meja-melakukan-latihan-untuk-persiapan-asian-para-games_20180921_143917.jpg"
+          }
+        ]
+
+      /* -----------------------------function------------------------ */
+      
+      function cekUser(namapengguna,sandi){
+
+        
+        for(let i = 0; i < user.length; i++){
+          if(user[i].userName === namapengguna && user[i].pass === sandi){
+        
+            return user[i].role
+          }
+        }
+        return false
+      }
+      function login (){
+        let nama = document.getElementById("namauser").value;
+        let pass = document.getElementById ("katasandi").value;
+        document.getElementById('usertxt').innerHTML = `Selamat Datang ${nama}`
+        document.getElementById('tomboltxt').innerHTML = `<input type = "button" class = "tombologout" value = "LOG OUT">`
+        return cekUser(nama,pass)
+      }
+      function printMenu(){
+        
+        let head = `<tr>
+                        <td>No</td>
+                        <td>Event</td>
+                        <td>Waktu</td>
+                        <td>Tanggal</td>
+                        <td>Hari</td>
+                        <td>Poster</td>
+                        <td>Action</td>
+                    </tr>`
+        let body = ""
+        let foot = `<tr>
+                      <td> <input id = "footNum" type = "number"></td>
+                      <td> <input id = "footevent" type = "text"></td>
+                      <td> <input id = "footwaktu" type = "text" class = "change" placeholder = "hh.mm WIB"></td>
+                      <td> <input id = "footkapan" type = "text" class = "change" placeholder = "dd month yyyy"></td>
+                      <td> <input id = "foothari" type = "text"></td>
+                      <td> <input id = "footgambar" type = "text"></td>
+                      <td> <input class = "tombol" type = "button" value = "add list" onclick = "addtoList()"></td>
+
+                    </tr>`
+        if(login() === "admin"){
+          
+          for(let i = 0; i < event.length; i++){
+            body += `<tr id = "${i}">
+                        <td>${i + 1}</td>
+                        <td>${event[i].acara}</td>
+                        <td>${event[i].waktu}</td>
+                        <td>${event[i].tanggal}</td>
+                        <td>${event[i].day}</td>
+                        <td><img src = '${event[i].gambar}' alt= 'foto hp'  width = '100px'></td>
+                        <td> <input type ="button"
+                                    class ="tombol"
+                                    value ="Edit"
+                                    onclick="editMenu(${i})"
+                              >
+                              <input type ="button"
+                                     class ="tombol"
+                                     value ="Delete"
+                                     onclick ="Delete(${i})"
+                              >
+                  </td>`
+            }
+          }
+          else if(login() === "user"){
+            for(let i = 0; i < event.length; i++){
+              body += `<tr id = "${i}">
+                        <td>${i + 1}</td>
+                        <td>${event[i].acara}</td>
+                        <td>${event[i].waktu}</td>
+                        <td>${event[i].tanggal}</td>
+                        <td>${event[i].day}</td>
+                        <td><img src = '${event[i].gambar}' alt= 'foto hp'  width = '100px'></td>
+                        <td> <input type ="button"
+                                    class ="tombol"
+                                    value ="Pilih"
+                                    onclick="tambahJadwal(${i})"
+                              >
+                  </td>`
+              foot = ""
+            }
+          }
+          else if(login() === false){
+            alert("anda Salah")
+            head = ""
+            foot = "Username Passwors Salah"
+            document.getElementById("containlogin").style.display = "show"
+
+          }
+        //let siapa = document.getElementById("namauser").value;
+        document.getElementById("headMenu").innerHTML = head;
+        document.getElementById("bodyMenu").innerHTML = body;
+        document.getElementById("footMenu").innerHTML = foot;
+        //document.getElementById("login").innerHTML = `Selamat Datang ${siapa}`
+        document.getElementById("containlogin").style.display = "none"
+      }
+      function Delete(index){
+          event.splice(index,1)
+          printMenu()
+      }
+      function addtoList(){
+        let newNum = document.getElementById("footNum").value;
+        let newEvent = document.getElementById("footevent").value;
+        let newWaktu = document.getElementById("footwaktu").value;
+        let newKapan = document.getElementById("footkapan").value;
+        let newHari = document.getElementById("foothari").value;
+        let newGambar = document.getElementById("footgambar").value;
+        let newList = new cetakanAcara(newEvent,newWaktu,newKapan,newHari,newGambar);
+        event.push(newList);
+        console.log(newNum);
+        console.log(newEvent);
+        console.log(newWaktu);
+        console.log(newKapan);
+        console.log(newHari);
+        console.log(newGambar);
+        printMenu()
+      }
+      function editMenu(index){
+          let bodyEdit = ""
+          for(let i = 0; i < event.length; i++){
+            if(i === index){
+              bodyEdit += `<tr>
+                      <td> <input id = "footNum" type = "number"></td>
+                      <td> <input id = "editEvent" type = "text"></td>
+                      <td> <input id = "editWaktu" type = "text" class = "change" placeholder = "hh.mm WIB"></td>
+                      <td> <input id = "editKapan" type = "text" class = "change" placeholder = "dd month yyyy"></td>
+                      <td> <select id = "option">
+                              <option value = "Jumat">Jumat<option>
+                              <option value = "Sabtu">Sabtu<option>
+                              <option value = "Minggu">Minggu<option>
+                        </select></td>
+                      <td> <input id = "editgambar" type = "text"></td>
+                      <td> <input class = "tombol" type = "button" value = "save" onclick = "save(${i})">
+                           <input class = "tombol" type = "button" value = "cancel" onclick = "printMenu()"></td>
+                            </tr>  
+                              `
+                          
+            }
+            else{
+              console.log('fgdjhgdjkh');
+              
+              bodyEdit += `<tr id = "${i}">
+                              <td>${i + 1}</td>
+                              <td>${event[i].acara}</td>
+                              <td>${event[i].waktu}</td>
+                              <td>${event[i].tanggal}</td>
+                              <td>${event[i].day}</td>
+                              <td><img src = '${event[i].gambar}' alt= 'foto hp'  width = '100px'></td>
+                              <td> <input type ="button"
+                                    class ="tombol"
+                                    value ="Edit"
+                                    >
+                              <input type ="button"
+                                     class ="tombol"
+                                     value ="Delete"
+                                     onclick ="Delete(${i})"
+                              >
+                              </td>
+                           </tr>   `
+
+            }
+          }
+          document.getElementById(`bodyMenu`).innerHTML = bodyEdit
+        }
+      function save(index){
+          let editAcara = document.getElementById('editEvent').value;
+          let editTime = document.getElementById('editWaktu').value;
+          let editMonth = document.getElementById("editKapan").value;
+          let editHari = document.getElementById('option').value;
+          let editImej = document.getElementById("editgambar").value;
+          if(editAcara === ''){
+            editAcara = event[index].acara;
+          }
+          if(editTime === ''){
+            editTime = event[index].waktu;
+          }
+          if(editMonth === ''){
+            editMonth = event[index].tanggal;
+          }
+          //if(editHari === ''){
+            //editHari = event[index].day;
+          //}
+          if(editImej === ''){
+            editImej =event[index].gambar;
+          }
+          
+          event[index].acara = editAcara;
+          event[index].waktu = editTime;
+          event[index].tanggal = editMonth;
+          event[index].day = editHari
+          event[index].gambar = editImej;
+          printMenu()
+        }
+        let pilihjJadwal = [];
+        function tambahJadwal(index){
+          pilihjJadwal.push(event[index])
+          printJadwal();
+        }
+        
+        function printJadwal(){
+          let headjadwal = `<tr>
+                              <td>Nomor</td>
+                              <td>Acara</td>
+                              <td>Poster</td>
+                              <td>Hari</td>
+                              <td>Action</td>
+                            </tr>  
+                                `
+          let output = '';
+          for(let i = 0; i < pilihjJadwal.length; i++){
+            output += `<tr>
+                        <td>${i + 1}</td>
+                        <td >${pilihjJadwal[i].acara}</td>
+                        <td><img src = '${pilihjJadwal[i].gambar}' alt= 'foto hp'
+                        width = '100px'></td>
+                        <td>${pilihjJadwal[i].day}</td>
+                        <td><input type="button" value="Delete "
+                        onclick="deleteJadwal(${i})"
+                        class = "tombol">
+                        </td>
+                       <tr>`
+          }
+          document.getElementById("jadwal").innerHTML = "Jadwal"
+          document.getElementById('jadwalmenu').innerHTML =headjadwal
+          document.getElementById('jadwalbody').innerHTML = output  
+        }
+        function deleteJadwal (index){
+          pilihjJadwal.splice(index,1)
+          printJadwal()
+        }
+    </script>
+  </body>
+
+</html>
